@@ -1,0 +1,60 @@
+# CSV Rescue — Complete Technical & Editorial Reference (llms-full.txt)
+
+> Version: 2.4.0 · License: MIT · Runtime Dependencies: 0 · Privacy: 100% Local-First (Zero Cloud Uploads)
+> Primary URL: https://csv-rescue.github.io/csv-rescue/
+
+## 1. Why CSV Rescue Exists (Product Story)
+
+US e-commerce, finance, CRM, and operations teams routinely deal with broken CSV and multi-sheet .xlsx exports right before deadlines: Excel silently strips leading zeros from Northeast US ZIP codes (02138 → 2138, 07030 → 7030), mangles UTF-8 accents into mojibake (JosÃ©), splits unquoted street addresses across extra columns, and exposes teams to OWASP formula injection (=HYPERLINK, @SUM). Because those files contain customer PII, uploading them to ad-hoc cloud converters violates SOC 2, HIPAA, or GDPR policies.
+
+CSV Rescue solves this with three non-negotiable rules:
+1. **100% Local-First**: Original bytes stay read-only on the user's device. Pure-JS FIPS 180-4 SHA-256 works even offline via `file://`.
+2. **Evidence Before Edits**: Every fix shows Before/After samples, affected row counts, risk level, and supports instant O(affected cells) inverse-patch Ctrl+Z Undo.
+3. **Uncertainty Queue (Never Guess Silently)**: Broken quotes, unquoted address commas, invalid emails, and ambiguous dates are isolated for human review—or exported as an offline interactive HTML review page when triggered by an AI agent via MCP.
+
+## 2. Verified Local Benchmarks
+
+- **100,000 rows (8.46 MB) in-memory streaming**: parse ~488 ms, full diagnostics ~622 ms, incremental 1-column re-diagnosis ~45 ms (**13.7x** speedup; **23.7x** on 20k rows), compact patch undo ~1.6 ms, AbortController cancel ~2.8 ms.
+- **500,000 rows (45.46 MB) O(1) disk-streaming (`diagnoseCsvFileStreaming`)**: ~1.12–1.25 s (~400k–444k rows/sec) at **15.8–29 MB** heap RAM.
+- **Public 10-Case CSV Torture Suite (`npm run torture`)**: 10/10 PASS.
+- **Automated Test Suite (`npm test`)**: 30/30 tests passing.
+
+## 3. MCP Server & AI Agent API (`apps/mcp-server/index.mjs`)
+
+Start the zero-dependency Stdio MCP Server:
+```bash
+node apps/mcp-server/index.mjs --allow-dir /path/to/your/data
+```
+
+### MCP Tools
+1. `csv_inspect({ filePath?, csvText?, sheetName?, encoding?, delimiter?, maxSamples? })`
+2. `csv_preview_pipeline({ filePath?, csvText?, sheetName?, rules, maxSamples? })`
+3. `csv_execute_pipeline({ filePath?, csvText?, sheetName?, rules, outPath?, format?, formulaProtection?, receiptPath?, reviewHtmlPath? })`
+4. `csv_diff_or_merge({ mode: "diff" | "merge", filePaths?, csvTexts?, keyColumn?, dedupeKey?, outPath? })`
+
+## 4. US-Market Repair Guides & Direct Answers
+
+### 4.1 How to Fix Excel Stripping Leading Zeros from US ZIP Codes (02138, 07030) Offline
+URL: https://csv-rescue.github.io/csv-rescue/guides/fix-us-zip-codes-leading-zeros-csv/
+Direct Answer: Excel strips leading zeros from US ZIP codes (like 02138 in Massachusetts or 07030 in New Jersey) because it auto-casts raw CSV fields into integers on double-click. To repair them without uploading customer addresses, load the file into CSV Rescue locally, run Preserve Leading Zeros (5-digit or ZIP+4 text padding), and export as Excel SpreadsheetML (.xls) or UTF-8 BOM CSV.
+Boundary: Honest boundary: if a 5-digit ZIP code was corrupted into a completely different number or truncated from the right, no automated padding can invent missing digits. CSV Rescue only pads numeric 3–4 digit US postal codes (and 4-digit ZIP+4 prefixes) and lets you inspect every changed row before export.
+
+### 4.2 How to Clean Customer PII CSV Files Without Uploading Them to the Cloud
+URL: https://csv-rescue.github.io/csv-rescue/guides/clean-csv-without-uploading-pii/
+Direct Answer: To clean spreadsheets containing customer emails, phone numbers, SSNs, or home addresses without triggering cloud data-leak risks, use a local-first tool that executes inside your browser tab or local CLI. CSV Rescue runs 100% offline with zero network calls, generates SHA-256 Repair Receipts that omit raw cell values, and sandboxes AI agent disk access via --allow-dir.
+Boundary: Honest boundary: CSV Rescue’s SHA-256 Repair Receipt proves file integrity and documents every transformation, but hashing is an integrity check—not encryption. Store the exported CSV itself according to your organization’s local disk encryption policy.
+
+### 4.3 How to Fix Broken UTF-8 Mojibake (Ã©, â€™, Garbled Characters) in CSV Files Offline
+URL: https://csv-rescue.github.io/csv-rescue/guides/fix-utf8-mojibake-encoding-csv-offline/
+Direct Answer: CSV mojibake like "JosÃ©" or "donâ€™t" happens when a UTF-8 file is opened as Windows-1252 (ANSI) by Excel, or when a legacy GB18030/Shift_JIS export is read as UTF-8. CSV Rescue’s Encoding Detective inspects raw bytes read-only across 9 encodings, previews readable text side-by-side, and exports clean UTF-8 with BOM so Excel renders accents and CJK characters properly.
+Boundary: Honest boundary: if raw file bytes already contain literal UTF-8 replacement bytes (0xEF 0xBF 0xBD / ) from an earlier corrupted save, the original characters are gone from the file. CSV Rescue explicitly warns you instead of pretending re-encoding recovered them.
+
+### 4.4 How to Fix Shopify, HubSpot & QuickBooks CSV Import Errors in Under 2 Minutes
+URL: https://csv-rescue.github.io/csv-rescue/guides/fix-shopify-quickbooks-csv-import-errors/
+Direct Answer: Most Shopify, HubSpot, and QuickBooks CSV import failures come from five structural bugs: unquoted commas inside US street addresses shifting columns, unclosed quotes swallowing rows, mixed currency formats ($1,250.50 vs ($45.00)), ambiguous MM/DD/YYYY vs DD/MM/YYYY dates, and duplicate rows. CSV Rescue isolates broken rows in an Uncertainty Queue and fixes deterministic issues with Before/After previews.
+Boundary: Honest boundary: ambiguous dates like 04/03/2026 cannot be guessed mathematically (it could be April 3 in the US or March 4 in the UK/MY). CSV Rescue always asks you to confirm MDY vs DMY before converting to ISO YYYY-MM-DD.
+
+### 4.5 How to Convert Multi-Sheet Excel (.xlsx) Files to Clean, Safe CSV Offline
+URL: https://csv-rescue.github.io/csv-rescue/guides/convert-multi-sheet-xlsx-to-clean-csv-offline/
+Direct Answer: CSV Rescue includes a zero-dependency native .xlsx (OOXML) reader powered by the browser’s built-in DecompressionStream and Node’s node:zlib. Drop any multi-sheet Excel workbook to switch tabs, clean formatting issues, neutralize OWASP CSV formula injection (=, +, -, @), and export clean UTF-8 CSV or JSON without uploading a single byte.
+Boundary: Honest boundary: CSV Rescue’s zero-dependency .xlsx reader targets standard OOXML spreadsheets (shared strings, inline strings, numbers, booleans, and cached/raw formula values). Password-encrypted workbooks and legacy binary .xls (BIFF8) files should be decrypted or saved as .xlsx/.csv first.

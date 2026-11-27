@@ -1,0 +1,6 @@
+id,name,payload
+1,Safe Row,Normal text
+2,Equals Formula,=SUM(1,2)
+3,At Formula,@SUM(1+1)*cmd
+4,Plus Command,+cmd|' /C calc'!A0
+5,Negative Number,-42.50

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How to Fix Shopify, HubSpot &amp; QuickBooks CSV Import Errors in Under 2 Minutes — CSV Rescue</title>
+  <meta name="description" content="Resolve column-count mismatches from unquoted street-address commas, broken quotes, mixed USD accounting negatives (($45.00)), ambiguous US dates, and repeated headers locally." />
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+  <link rel="canonical" href="https://csv-rescue.github.io/csv-rescue/guides/fix-shopify-quickbooks-csv-import-errors/" />
+  <link rel="alternate" type="text/markdown" href="../../llms.txt" title="CSV Rescue LLMs.txt" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="CSV Rescue" />
+  <meta property="og:title" content="How to Fix Shopify, HubSpot &amp; QuickBooks CSV Import Errors in Under 2 Minutes" />
+  <meta property="og:description" content="Resolve column-count mismatches from unquoted street-address commas, broken quotes, mixed USD accounting negatives (($45.00)), ambiguous US dates, and repeated headers locally." />
+  <meta property="og:url" content="https://csv-rescue.github.io/csv-rescue/guides/fix-shopify-quickbooks-csv-import-errors/" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="How to Fix Shopify, HubSpot &amp; QuickBooks CSV Import Errors in Under 2 Minutes" />
+  <meta name="twitter:description" content="Resolve column-count mismatches from unquoted street-address commas, broken quotes, mixed USD accounting negatives (($45.00)), ambiguous US dates, and repeated headers locally." />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "headline": "How to Fix Shopify, HubSpot & QuickBooks CSV Import Errors in Under 2 Minutes",
+      "description": "Resolve column-count mismatches from unquoted street-address commas, broken quotes, mixed USD accounting negatives (($45.00)), ambiguous US dates, and repeated headers locally.",
+      "datePublished": "2026-11-27",
+      "dateModified": "2026-11-27",
+      "inLanguage": "en-US",
+      "author": {
+        "@type": "Organization",
+        "name": "CSV Rescue Open-Source Project",
+        "url": "https://csv-rescue.github.io/csv-rescue/"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "CSV Rescue",
+        "url": "https://csv-rescue.github.io/csv-rescue/"
+      },
+      "mainEntityOfPage": "https://csv-rescue.github.io/csv-rescue/guides/fix-shopify-quickbooks-csv-import-errors/"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Why does one unclosed quote break thousands of rows in standard CSV parsers?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Strict RFC 4180 parsers keep consuming newlines until they find a matching quote. CSV Rescue bounds multiline lookahead and isolates unclosed quotes on their exact source line so subsequent records stay intact."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does CSV Rescue handle QuickBooks accounting negative amounts like ($45.00) or 45.00-?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. The normalize_currency rule recognizes parenthesized negatives, trailing minus signs, commas, and US/international currency symbols, converting them to standard numeric decimals like -45.00."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I map messy vendor headers like \"Item Desc\" and \"Unit Price\" to a standard schema?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Open Mapping Studio to match columns against built-in E-commerce, CRM, Marketing, or Finance packs and save a Supplier Memory template that detects schema drift next month."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "CSV Rescue",
+          "item": "https://csv-rescue.github.io/csv-rescue/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Fix Shopify & QuickBooks CSV Import Errors",
+          "item": "https://csv-rescue.github.io/csv-rescue/guides/fix-shopify-quickbooks-csv-import-errors/"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+  <style>
+    :root { --bg: #f8fafc; --card: #ffffff; --text: #0f172a; --muted: #475569; --border: #e2e8f0; --brand: #2563eb; }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.65; }
+    .topbar { background: #fff; border-bottom: 1px solid var(--border); padding: 12px 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px; position: sticky; top: 0; z-index: 20; }
+    .brand { display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text); font-weight: 800; font-size: 15px; }
+    .mark { width: 26px; height: 26px; border-radius: 7px; background: var(--brand); color: #fff; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; }
+    .cta { display: inline-flex; align-items: center; gap: 6px; background: var(--brand); color: #fff; text-decoration: none; font-weight: 600; font-size: 13px; padding: 8px 14px; border-radius: 8px; }
+    .cta:hover { background: #1d4ed8; }
+    main { max-width: 820px; margin: 28px auto 48px; padding: 0 20px; }
+    .crumb { font-size: 12.5px; color: var(--muted); margin-bottom: 12px; }
+    .crumb a { color: var(--brand); text-decoration: none; }
+    .tag { display: inline-block; font-size: 11.5px; font-weight: 700; color: var(--brand); background: #eff6ff; border: 1px solid #bfdbfe; padding: 2px 9px; border-radius: 99px; margin-bottom: 10px; }
+    h1 { margin: 0 0 12px; font-size: clamp(24px, 3.5vw, 32px); line-height: 1.22; letter-spacing: -0.02em; }
+    .answer-box { background: #eff6ff; border-left: 4px solid var(--brand); border-radius: 8px; padding: 14px 16px; margin: 18px 0 24px; font-size: 14.5px; color: #1e293b; }
+    .answer-box strong { color: #1e3a8a; }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px 22px; margin-bottom: 18px; }
+    h2 { margin: 0 0 10px; font-size: 19px; color: var(--text); }
+    p { margin: 0 0 12px; color: #334155; font-size: 14.8px; }
+    table { width: 100%; border-collapse: collapse; font-size: 13.5px; margin-top: 8px; }
+    th, td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--border); }
+    th { background: #f8fafc; color: var(--muted); font-weight: 600; }
+    .bad { color: #b91c1c; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12.5px; }
+    .good { color: #047857; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12.5px; font-weight: 600; }
+    ol { margin: 8px 0 0; padding-left: 20px; }
+    ol li { margin-bottom: 8px; font-size: 14.5px; color: #334155; }
+    .boundary { background: #fffbeb; border: 1px solid #fde68a; border-radius: 8px; padding: 12px 14px; font-size: 13.5px; color: #92400e; margin-top: 12px; }
+    .faq-item { border-top: 1px solid var(--border); padding: 12px 0; }
+    .faq-item:first-of-type { border-top: none; padding-top: 4px; }
+    .faq-item h3 { margin: 0 0 4px; font-size: 15px; color: var(--text); }
+    .cta-banner { background: #0f172a; color: #fff; border-radius: 12px; padding: 22px 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px; margin: 24px 0; }
+    .cta-banner p { color: #cbd5e1; margin: 4px 0 0; font-size: 13.5px; }
+    .related { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; margin-top: 10px; }
+    .related a { display: block; background: #fff; border: 1px solid var(--border); border-radius: 9px; padding: 12px; text-decoration: none; color: var(--text); font-size: 13px; font-weight: 600; }
+    .related a:hover { border-color: var(--brand); }
+    footer { max-width: 820px; margin: 0 auto 36px; padding: 0 20px; font-size: 12.5px; color: var(--muted); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+    footer a { color: var(--brand); text-decoration: none; }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="../../"><span class="mark">CR</span> CSV Rescue</a>
+    <a class="cta" href="../../">Open Local Workbench →</a>
+  </header>
+  <main>
+    <nav class="crumb" aria-label="Breadcrumb"><a href="../../">CSV Rescue</a> / Guides / Fix Shopify &amp; QuickBooks CSV Import Errors</nav>
+    <span class="tag">E-Commerce &amp; Finance · 4 min read</span>
+    <h1>How to Fix Shopify, HubSpot &amp; QuickBooks CSV Import Errors in Under 2 Minutes</h1>
+
+    <section class="answer-box" aria-label="Quick Answer">
+      <strong>Direct Answer:</strong> Most Shopify, HubSpot, and QuickBooks CSV import failures come from five structural bugs: unquoted commas inside US street addresses shifting columns, unclosed quotes swallowing rows, mixed currency formats ($1,250.50 vs ($45.00)), ambiguous MM/DD/YYYY vs DD/MM/YYYY dates, and duplicate rows. CSV Rescue isolates broken rows in an Uncertainty Queue and fixes deterministic issues with Before/After previews.
+    </section>
+
+    <article class="card">
+      <h2>The 4:55 PM Friday Import Rejection Wall</h2>
+      <p>You are five minutes from closing the week. You upload your vendor order sheet to Shopify or QuickBooks, and the importer throws a cryptic message: &quot;Line 47: Expected 9 columns, got 10&quot; or &quot;Invalid amount format on row 184.&quot;</p>
+      <p>Digging through a 30,000-row CSV in Notepad to find one missing quote or one unquoted comma in &quot;742 Evergreen Ave, Boston MA&quot; is brutal—and blindly running find-and-replace on commas will destroy the rest of the file.</p>
+    </article>
+
+    <section class="card">
+      <h2>Before &amp; After Repair Examples</h2>
+      <table>
+        <thead>
+          <tr><th>Scenario</th><th>Broken Input</th><th>Repaired Output</th><th>Result</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Unquoted Address Comma</strong></td><td class="bad">742 Evergreen Ave | Boston MA (10 cols)</td><td class="good">&quot;742 Evergreen Ave, Boston MA&quot; (9 cols)</td><td>Candidate merge in Uncertainty Queue</td></tr>
+          <tr><td><strong>Accounting Negative USD</strong></td><td class="bad">($1,250.50) / 45.00-</td><td class="good">-1250.50 / -45.00</td><td>Clean numeric 2-decimal output</td></tr>
+          <tr><td><strong>Mixed US &amp; ISO Dates</strong></td><td class="bad">Nov 27, 2026 &amp; 04/03/2026</td><td class="good">2026-11-27 &amp; 2026-04-03</td><td>Explicit MDY vs DMY confirmation</td></tr>
+          <tr><td><strong>Unclosed Quote</strong></td><td class="bad">&quot;Broken Quote User,devon@demo.us</td><td class="good">Isolated on Line 9 (no row swallowing)</td><td>Editable inline or exported separately</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="card">
+      <h2>Step-by-Step Local Repair Workflow</h2>
+      <ol>
+        <li>Drop your failing CSV into CSV Rescue—or click &quot;Broken Orders CSV&quot; on the home screen to see a live US e-commerce example immediately.</li>
+        <li>Review the Health Report: critical structural errors (ROW_WIDTH_MISMATCH, QUOTE_ERROR) are separated from safe fixes (blank rows, repeated headers, extra spaces).</li>
+        <li>Click &quot;Apply Safe Fixes Only&quot; to clean deterministic noise in one click, then confirm currency normalization and MDY/DMY date order in Review Fixes.</li>
+        <li>Open the Uncertainty Queue to accept, manually edit, or separately export the handful of genuinely broken rows—so 99.8% of your clean orders import on time.</li>
+      </ol>
+      <div class="boundary">Honest boundary: ambiguous dates like 04/03/2026 cannot be guessed mathematically (it could be April 3 in the US or March 4 in the UK/MY). CSV Rescue always asks you to confirm MDY vs DMY before converting to ISO YYYY-MM-DD.</div>
+    </section>
+
+    <section class="cta-banner">
+      <div>
+        <strong style="font-size:16px;">Ready to fix your file without uploading a single byte?</strong>
+        <p>100% browser-local Web Worker · Native .xlsx &amp; CSV · Instant Ctrl+Z undo · Free MIT open-source</p>
+      </div>
+      <a class="cta" href="../../">Launch CSV Rescue Now →</a>
+    </section>
+
+    <section class="card">
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-item"><h3>Why does one unclosed quote break thousands of rows in standard CSV parsers?</h3><p style="margin-bottom:0;">Strict RFC 4180 parsers keep consuming newlines until they find a matching quote. CSV Rescue bounds multiline lookahead and isolates unclosed quotes on their exact source line so subsequent records stay intact.</p></div>
+      <div class="faq-item"><h3>Does CSV Rescue handle QuickBooks accounting negative amounts like ($45.00) or 45.00-?</h3><p style="margin-bottom:0;">Yes. The normalize_currency rule recognizes parenthesized negatives, trailing minus signs, commas, and US/international currency symbols, converting them to standard numeric decimals like -45.00.</p></div>
+      <div class="faq-item"><h3>Can I map messy vendor headers like &quot;Item Desc&quot; and &quot;Unit Price&quot; to a standard schema?</h3><p style="margin-bottom:0;">Yes. Open Mapping Studio to match columns against built-in E-commerce, CRM, Marketing, or Finance packs and save a Supplier Memory template that detects schema drift next month.</p></div>
+    </section>
+
+    <section>
+      <h2 style="font-size:16px;margin-bottom:8px;">More Local CSV &amp; Excel Repair Guides</h2>
+      <div class="related">
+        <a href="../fix-us-zip-codes-leading-zeros-csv/">Fix Stripped Leading Zeros in US ZIP Codes →</a>
+        <a href="../clean-csv-without-uploading-pii/">Clean Customer PII CSVs Locally (Zero Upload) →</a>
+        <a href="../fix-utf8-mojibake-encoding-csv-offline/">Fix Broken UTF-8 Mojibake Encoding Offline →</a>
+        <a href="../convert-multi-sheet-xlsx-to-clean-csv-offline/">Convert Multi-Sheet .xlsx to Clean CSV Locally →</a>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <span>CSV Rescue v2.4.0 · MIT Open-Source · 100% Local-First</span>
+    <span><a href="../../">Workbench</a> · <a href="../../llms.txt">llms.txt</a> · <a href="../../sitemap.xml">sitemap.xml</a></span>
+  </footer>
+</body>
+</html>

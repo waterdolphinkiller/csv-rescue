@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How to Fix Excel Stripping Leading Zeros from US ZIP Codes (02138, 07030) Offline — CSV Rescue</title>
+  <meta name="description" content="Stop Excel from turning Boston (02138) and New Jersey (07030) ZIP codes into 4-digit numbers. Repair 5-digit and ZIP+4 postal codes 100% locally in your browser with zero uploads." />
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+  <link rel="canonical" href="https://csv-rescue.github.io/csv-rescue/guides/fix-us-zip-codes-leading-zeros-csv/" />
+  <link rel="alternate" type="text/markdown" href="../../llms.txt" title="CSV Rescue LLMs.txt" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="CSV Rescue" />
+  <meta property="og:title" content="How to Fix Excel Stripping Leading Zeros from US ZIP Codes (02138, 07030) Offline" />
+  <meta property="og:description" content="Stop Excel from turning Boston (02138) and New Jersey (07030) ZIP codes into 4-digit numbers. Repair 5-digit and ZIP+4 postal codes 100% locally in your browser with zero uploads." />
+  <meta property="og:url" content="https://csv-rescue.github.io/csv-rescue/guides/fix-us-zip-codes-leading-zeros-csv/" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="How to Fix Excel Stripping Leading Zeros from US ZIP Codes (02138, 07030) Offline" />
+  <meta name="twitter:description" content="Stop Excel from turning Boston (02138) and New Jersey (07030) ZIP codes into 4-digit numbers. Repair 5-digit and ZIP+4 postal codes 100% locally in your browser with zero uploads." />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "headline": "How to Fix Excel Stripping Leading Zeros from US ZIP Codes (02138, 07030) Offline",
+      "description": "Stop Excel from turning Boston (02138) and New Jersey (07030) ZIP codes into 4-digit numbers. Repair 5-digit and ZIP+4 postal codes 100% locally in your browser with zero uploads.",
+      "datePublished": "2026-11-27",
+      "dateModified": "2026-11-27",
+      "inLanguage": "en-US",
+      "author": {
+        "@type": "Organization",
+        "name": "CSV Rescue Open-Source Project",
+        "url": "https://csv-rescue.github.io/csv-rescue/"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "CSV Rescue",
+        "url": "https://csv-rescue.github.io/csv-rescue/"
+      },
+      "mainEntityOfPage": "https://csv-rescue.github.io/csv-rescue/guides/fix-us-zip-codes-leading-zeros-csv/"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Why does Excel delete the zero at the start of New England and New Jersey ZIP codes?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "CSV is plain text with no column type metadata. When Excel opens a CSV via double-click, its General formatter parses digits as integers, silently discarding leading zeros."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does CSV Rescue preserve ZIP+4 codes like 02108-1234?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. CSV Rescue detects both 5-digit ZIP codes and ZIP+4 patterns (e.g., 2108-1234 → 02108-1234) without stripping the hyphen or suffix."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I stop Excel from breaking the ZIP codes again after I repair them?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Export using CSV Rescue’s Excel SpreadsheetML (.xls) preset, which writes explicit String cell types so Excel opens 02138 as text, or import the UTF-8 CSV via Excel Data → From Text/CSV with the column set to Text."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "CSV Rescue",
+          "item": "https://csv-rescue.github.io/csv-rescue/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Fix Stripped Leading Zeros in US ZIP Codes",
+          "item": "https://csv-rescue.github.io/csv-rescue/guides/fix-us-zip-codes-leading-zeros-csv/"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+  <style>
+    :root { --bg: #f8fafc; --card: #ffffff; --text: #0f172a; --muted: #475569; --border: #e2e8f0; --brand: #2563eb; }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.65; }
+    .topbar { background: #fff; border-bottom: 1px solid var(--border); padding: 12px 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px; position: sticky; top: 0; z-index: 20; }
+    .brand { display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text); font-weight: 800; font-size: 15px; }
+    .mark { width: 26px; height: 26px; border-radius: 7px; background: var(--brand); color: #fff; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; }
+    .cta { display: inline-flex; align-items: center; gap: 6px; background: var(--brand); color: #fff; text-decoration: none; font-weight: 600; font-size: 13px; padding: 8px 14px; border-radius: 8px; }
+    .cta:hover { background: #1d4ed8; }
+    main { max-width: 820px; margin: 28px auto 48px; padding: 0 20px; }
+    .crumb { font-size: 12.5px; color: var(--muted); margin-bottom: 12px; }
+    .crumb a { color: var(--brand); text-decoration: none; }
+    .tag { display: inline-block; font-size: 11.5px; font-weight: 700; color: var(--brand); background: #eff6ff; border: 1px solid #bfdbfe; padding: 2px 9px; border-radius: 99px; margin-bottom: 10px; }
+    h1 { margin: 0 0 12px; font-size: clamp(24px, 3.5vw, 32px); line-height: 1.22; letter-spacing: -0.02em; }
+    .answer-box { background: #eff6ff; border-left: 4px solid var(--brand); border-radius: 8px; padding: 14px 16px; margin: 18px 0 24px; font-size: 14.5px; color: #1e293b; }
+    .answer-box strong { color: #1e3a8a; }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px 22px; margin-bottom: 18px; }
+    h2 { margin: 0 0 10px; font-size: 19px; color: var(--text); }
+    p { margin: 0 0 12px; color: #334155; font-size: 14.8px; }
+    table { width: 100%; border-collapse: collapse; font-size: 13.5px; margin-top: 8px; }
+    th, td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--border); }
+    th { background: #f8fafc; color: var(--muted); font-weight: 600; }
+    .bad { color: #b91c1c; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12.5px; }
+    .good { color: #047857; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12.5px; font-weight: 600; }
+    ol { margin: 8px 0 0; padding-left: 20px; }
+    ol li { margin-bottom: 8px; font-size: 14.5px; color: #334155; }
+    .boundary { background: #fffbeb; border: 1px solid #fde68a; border-radius: 8px; padding: 12px 14px; font-size: 13.5px; color: #92400e; margin-top: 12px; }
+    .faq-item { border-top: 1px solid var(--border); padding: 12px 0; }
+    .faq-item:first-of-type { border-top: none; padding-top: 4px; }
+    .faq-item h3 { margin: 0 0 4px; font-size: 15px; color: var(--text); }
+    .cta-banner { background: #0f172a; color: #fff; border-radius: 12px; padding: 22px 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px; margin: 24px 0; }
+    .cta-banner p { color: #cbd5e1; margin: 4px 0 0; font-size: 13.5px; }
+    .related { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; margin-top: 10px; }
+    .related a { display: block; background: #fff; border: 1px solid var(--border); border-radius: 9px; padding: 12px; text-decoration: none; color: var(--text); font-size: 13px; font-weight: 600; }
+    .related a:hover { border-color: var(--brand); }
+    footer { max-width: 820px; margin: 0 auto 36px; padding: 0 20px; font-size: 12.5px; color: var(--muted); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+    footer a { color: var(--brand); text-decoration: none; }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="../../"><span class="mark">CR</span> CSV Rescue</a>
+    <a class="cta" href="../../">Open Local Workbench →</a>
+  </header>
+  <main>
+    <nav class="crumb" aria-label="Breadcrumb"><a href="../../">CSV Rescue</a> / Guides / Fix Stripped Leading Zeros in US ZIP Codes</nav>
+    <span class="tag">US Postal &amp; Shipping · 3 min read</span>
+    <h1>How to Fix Excel Stripping Leading Zeros from US ZIP Codes (02138, 07030) Offline</h1>
+
+    <section class="answer-box" aria-label="Quick Answer">
+      <strong>Direct Answer:</strong> Excel strips leading zeros from US ZIP codes (like 02138 in Massachusetts or 07030 in New Jersey) because it auto-casts raw CSV fields into integers on double-click. To repair them without uploading customer addresses, load the file into CSV Rescue locally, run Preserve Leading Zeros (5-digit or ZIP+4 text padding), and export as Excel SpreadsheetML (.xls) or UTF-8 BOM CSV.
+    </section>
+
+    <article class="card">
+      <h2>The Boston 02138 Shipping Label Failure</h2>
+      <p>A Northeast fulfillment coordinator exports 4,200 Shopify orders on Monday morning, opens the CSV in Excel to check one column, and hits Save. Ten minutes later, UPS WorldShip and ShipStation reject 680 Massachusetts, Connecticut, New Jersey, Maine, and Puerto Rico shipments with &quot;Invalid Postal Code.&quot;</p>
+      <p>Excel did not throw a single warning. It quietly converted &quot;02138&quot; into 2138, &quot;07030&quot; into 7030, and &quot;02108-1234&quot; into mangled strings. If you are dealing with real customer home addresses, uploading that file to a random web-based CSV fixer creates an unnecessary PII leak.</p>
+    </article>
+
+    <section class="card">
+      <h2>Before &amp; After Repair Examples</h2>
+      <table>
+        <thead>
+          <tr><th>Scenario</th><th>Broken Input</th><th>Repaired Output</th><th>Result</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Cambridge, MA ZIP</strong></td><td class="bad">2138</td><td class="good">02138</td><td>Padded to 5-digit string</td></tr>
+          <tr><td><strong>Hoboken, NJ ZIP</strong></td><td class="bad">7030</td><td class="good">07030</td><td>Leading zero restored</td></tr>
+          <tr><td><strong>Boston ZIP+4</strong></td><td class="bad">2108-1234</td><td class="good">02108-1234</td><td>Prefix padded, +4 preserved</td></tr>
+          <tr><td><strong>Chicago, IL ZIP</strong></td><td class="bad">60606</td><td class="good">60606</td><td>Unchanged (already 5 digits)</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="card">
+      <h2>Step-by-Step Local Repair Workflow</h2>
+      <ol>
+        <li>Open CSV Rescue locally in your browser (or drag your .csv / .xlsx file straight onto the dropzone). No bytes leave your computer.</li>
+        <li>Check the Health Report: CSV Rescue automatically flags postal columns with leading-zero risk (LEADING_ZERO_RISK).</li>
+        <li>Click &quot;Preview&quot; on the Preserve Leading Zeros rule to inspect Before/After samples, then apply it with one click (Ctrl+Z undoes instantly via compact patches).</li>
+        <li>In Safe Export, choose Excel SpreadsheetML (.xls) if teammates will reopen the file in Excel—every cell is explicitly typed as String so Excel can never drop the zeros again—or UTF-8 CSV with BOM for carrier portals.</li>
+      </ol>
+      <div class="boundary">Honest boundary: if a 5-digit ZIP code was corrupted into a completely different number or truncated from the right, no automated padding can invent missing digits. CSV Rescue only pads numeric 3–4 digit US postal codes (and 4-digit ZIP+4 prefixes) and lets you inspect every changed row before export.</div>
+    </section>
+
+    <section class="cta-banner">
+      <div>
+        <strong style="font-size:16px;">Ready to fix your file without uploading a single byte?</strong>
+        <p>100% browser-local Web Worker · Native .xlsx &amp; CSV · Instant Ctrl+Z undo · Free MIT open-source</p>
+      </div>
+      <a class="cta" href="../../">Launch CSV Rescue Now →</a>
+    </section>
+
+    <section class="card">
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-item"><h3>Why does Excel delete the zero at the start of New England and New Jersey ZIP codes?</h3><p style="margin-bottom:0;">CSV is plain text with no column type metadata. When Excel opens a CSV via double-click, its General formatter parses digits as integers, silently discarding leading zeros.</p></div>
+      <div class="faq-item"><h3>Does CSV Rescue preserve ZIP+4 codes like 02108-1234?</h3><p style="margin-bottom:0;">Yes. CSV Rescue detects both 5-digit ZIP codes and ZIP+4 patterns (e.g., 2108-1234 → 02108-1234) without stripping the hyphen or suffix.</p></div>
+      <div class="faq-item"><h3>How do I stop Excel from breaking the ZIP codes again after I repair them?</h3><p style="margin-bottom:0;">Export using CSV Rescue’s Excel SpreadsheetML (.xls) preset, which writes explicit String cell types so Excel opens 02138 as text, or import the UTF-8 CSV via Excel Data → From Text/CSV with the column set to Text.</p></div>
+    </section>
+
+    <section>
+      <h2 style="font-size:16px;margin-bottom:8px;">More Local CSV &amp; Excel Repair Guides</h2>
+      <div class="related">
+        <a href="../clean-csv-without-uploading-pii/">Clean Customer PII CSVs Locally (Zero Upload) →</a>
+        <a href="../fix-utf8-mojibake-encoding-csv-offline/">Fix Broken UTF-8 Mojibake Encoding Offline →</a>
+        <a href="../fix-shopify-quickbooks-csv-import-errors/">Fix Shopify &amp; QuickBooks CSV Import Errors →</a>
+        <a href="../convert-multi-sheet-xlsx-to-clean-csv-offline/">Convert Multi-Sheet .xlsx to Clean CSV Locally →</a>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <span>CSV Rescue v2.4.0 · MIT Open-Source · 100% Local-First</span>
+    <span><a href="../../">Workbench</a> · <a href="../../llms.txt">llms.txt</a> · <a href="../../sitemap.xml">sitemap.xml</a></span>
+  </footer>
+</body>
+</html>

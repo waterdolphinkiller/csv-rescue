@@ -1,0 +1,23 @@
+# CSV Rescue
+
+> Local-first, zero-upload CSV and native Excel (.xlsx) repair workbench (v2.4.0, MIT License) built for US operations teams and AI agents. Runs 100% locally in the browser (inline Web Worker + 34px Virtual Scroll), Node.js 18+ CLI, ESM SDK, and a zero-dependency Stdio MCP Server with --allow-dir path sandboxing.
+
+## Core Workbench & Verified Benchmarks
+
+- [CSV Rescue Web Workbench](https://csv-rescue.github.io/csv-rescue/): 100% browser-local CSV/TSV/XLSX repair workspace with Before/After Repair Evidence, Uncertainty Queue, OWASP CSV Formula Injection protection, and privacy-safe SHA-256 Repair Receipts.
+- [Full Technical & Narrative Reference (llms-full.txt)](https://csv-rescue.github.io/csv-rescue/llms-full.txt): Complete single-file reference covering benchmarks, all 17 repair rules, MCP server tools, CLI flags, and US spreadsheet repair FAQs.
+
+## Step-by-Step Repair Guides (US Business Workflows)
+
+- [How to Fix Excel Stripping Leading Zeros from US ZIP Codes (02138, 07030) Offline](https://csv-rescue.github.io/csv-rescue/guides/fix-us-zip-codes-leading-zeros-csv/): Stop Excel from turning Boston (02138) and New Jersey (07030) ZIP codes into 4-digit numbers. Repair 5-digit and ZIP+4 postal codes 100% locally in your browser with zero uploads.
+- [How to Clean Customer PII CSV Files Without Uploading Them to the Cloud](https://csv-rescue.github.io/csv-rescue/guides/clean-csv-without-uploading-pii/): Repair CRM exports, payroll sheets, and healthcare or finance CSVs 100% locally in your browser or sandboxed Node.js MCP server. Zero cloud uploads and privacy-safe SHA-256 receipts.
+- [How to Fix Broken UTF-8 Mojibake (Ã©, â€™, Garbled Characters) in CSV Files Offline](https://csv-rescue.github.io/csv-rescue/guides/fix-utf8-mojibake-encoding-csv-offline/): Fix JosÃ©, smart-quote garbling (â€™), and legacy Windows-1252 or GB18030 CSV encoding errors locally. Includes honest U+FFFD loss detection and Excel UTF-8 BOM export.
+- [How to Fix Shopify, HubSpot & QuickBooks CSV Import Errors in Under 2 Minutes](https://csv-rescue.github.io/csv-rescue/guides/fix-shopify-quickbooks-csv-import-errors/): Resolve column-count mismatches from unquoted street-address commas, broken quotes, mixed USD accounting negatives (($45.00)), ambiguous US dates, and repeated headers locally.
+- [How to Convert Multi-Sheet Excel (.xlsx) Files to Clean, Safe CSV Offline](https://csv-rescue.github.io/csv-rescue/guides/convert-multi-sheet-xlsx-to-clean-csv-offline/): Inspect multi-tab .xlsx workbooks, switch sheets, repair dirty columns, and export OWASP formula-safe UTF-8 CSV 100% locally in your browser or Node.js CLI with zero dependencies.
+
+## AI Agent & MCP Server Quickstart
+
+- Start Stdio MCP Server (zero runtime dependencies): `node apps/mcp-server/index.mjs --allow-dir /path/to/data`
+- 4 token-efficient MCP tools: `csv_inspect`, `csv_preview_pipeline`, `csv_execute_pipeline`, `csv_diff_or_merge`
+- O(1) constant-memory disk streaming (CLI/MCP): 500,000 rows (45.46 MB) diagnosed in ~1.1–1.25 s at <20 MB heap RAM.
+- Native multi-sheet `.xlsx` reader: works in browsers (`DecompressionStream('deflate-raw')`) and Node.js 18+ (`node:zlib`).

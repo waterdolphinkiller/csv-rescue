@@ -1,0 +1,38 @@
+{
+  "name": "csv-rescue",
+  "version": "2.4.0",
+  "description": "A local-first CSV repair and data-cleaning workspace for people who work with spreadsheets, not code — with a v2.0 plugin streaming engine, AI-friendly Agent API, and zero-dependency MCP Server.",
+  "type": "module",
+  "private": false,
+  "license": "MIT",
+  "keywords": [
+    "csv",
+    "data-cleaning",
+    "csv-repair",
+    "encoding-detection",
+    "local-first",
+    "spreadsheet",
+    "formula-injection",
+    "virtual-scroll",
+    "web-worker",
+    "mcp",
+    "ai-agent",
+    "open-source"
+  ],
+  "bin": {
+    "csv-rescue": "./apps/cli/csv-rescue.mjs",
+    "csv-rescue-mcp": "./apps/mcp-server/index.mjs"
+  },
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "build:web": "node scripts/build-web.mjs",
+    "benchmark": "node benchmarks/run-benchmarks.mjs",
+    "cli": "node apps/cli/csv-rescue.mjs",
+    "mcp": "node apps/mcp-server/index.mjs",
+    "torture": "node benchmarks/torture-suite.mjs",
+    "build:site": "node scripts/build-site.mjs"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

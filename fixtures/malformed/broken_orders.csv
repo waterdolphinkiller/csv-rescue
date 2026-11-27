@@ -1,0 +1,8 @@
+order_id,customer_name,email,phone,address,postal_code,order_date,amount,notes
+ORD-1001, Chen Xiao Ming ,CHEN.XM@Example.com,012-3456789,12 Jalan Merah, Kuala Lumpur,05100,04/03/2026,RM 1,250.50,VIP customer
+ORD-1002,Nur Aisyah,aisyah@shop.my,0198765432,"88 Jalan Bukit Bintang, KL",55100,2026-03-04,RM 320.00,Delivered
+,,,,,,,,
+order_id,customer_name,email,phone,address,postal_code,order_date,amount,notes
+ORD-1002,Nur Aisyah,aisyah@shop.my,0198765432,"88 Jalan Bukit Bintang, KL",55100,2026-03-04,RM 320.00,Delivered
+ORD-1004,Rajesh Kumar,rajesh-invalid-email,0162233445,"5 Persiaran Gurney, Penang",10250,03/04/2026,RM 450.00,=HYPERLINK("http://evil.example","Click")
+ORD-1005,"Broken Quote User,ali@demo.my,01122334455,"9 Jalan Ampang",50450,2026-03-18,RM 99.00,Check manually

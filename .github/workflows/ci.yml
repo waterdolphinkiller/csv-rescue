@@ -1,0 +1,26 @@
+name: CSV Rescue CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Run unit & integration tests
+        run: npm test
+      - name: Build standalone browser app
+        run: npm run build:web
+      - name: Run CLI smoke test
+        run: node apps/cli/csv-rescue.mjs diagnose fixtures/malformed/broken_orders.csv
+      - name: Run benchmarks
+        run: npm run benchmark
+      - name: Run 10-case CSV Torture Suite
+        run: npm run torture
