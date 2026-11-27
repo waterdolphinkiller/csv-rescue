@@ -1,7 +1,7 @@
 # CSV Rescue v2.0
 
 
-https://github.com/user-attachments/assets/1911cc1f-baf8-49e4-8b3e-21b92427e7d2
+https://github.com/user-attachments/assets/8e9a09b9-98d8-4f77-80d7-59ce1bbf5abe
 
 
 ![CSV Rescue Demo](docs/media/csv-rescue-demo.gif)
