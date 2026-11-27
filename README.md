@@ -1,5 +1,9 @@
 # CSV Rescue v2.0
 
+
+https://github.com/user-attachments/assets/1911cc1f-baf8-49e4-8b3e-21b92427e7d2
+
+
 ![CSV Rescue Demo](docs/media/csv-rescue-demo.gif)
 
 > **Fix messy CSV files without guessing.**  
